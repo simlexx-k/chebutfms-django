@@ -1,4 +1,4 @@
-from .views import submit_tea, success_page
+from .views import submit_tea, success_page, generate_farmer_list_pdf
 from django.urls import path
 from django.contrib.auth import views as auth_views
 
@@ -7,5 +7,6 @@ urlpatterns = [
     path('success_page/', success_page, name='success_page'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('generate_farmer_list_pdf/', generate_farmer_list_pdf, name='generate_farmer_list_pdf'),
 ]
 

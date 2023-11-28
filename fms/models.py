@@ -104,3 +104,36 @@ class TeaSubmission(models.Model):
 
     def __str__(self):
         return f"{self.field_manager.username} - {self.amount_in_kgs} kgs - {self.submission_date}"
+
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+from io import BytesIO
+
+def generate_farmer_list_pdf(queryset):
+    buffer = BytesIO()
+
+    # Create the PDF object, using BytesIO as its "file."
+    pdf = SimpleDocTemplate(buffer, pagesize=letter)
+
+    # Our container for 'Flowable' objects
+    elements = []
+
+    # Create the table header
+    table_data = [['First Name', 'Last Name', 'Email', 'Phone Number', 'Address']]
+
+    # Populate the table data from the queryset
+    for farmer in queryset:
+        table_data.append([farmer.first_name, farmer.last_name, farmer.email, farmer.phone_number, farmer.address])
+
+    # Create the table
+    table = Table(table_data, colWidths=[120, 120, 120, 120, 120])
+    elements.append(table)
+
+    # Build PDF
+    pdf.build(elements)
+
+    # Seek to the beginning of the BytesIO buffer
+    buffer.seek(0)
+
+    return buffer
