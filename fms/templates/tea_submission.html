@@ -1,0 +1,56 @@
+<!-- tea_submission.html -->
+  <!-- Replace 'base.html' with your base template -->
+  <!DOCTYPE html>
+  <head>
+          <!-- Materialize CSS -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  
+      <!-- Materialize JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  
+      <!-- Define Titles Etcetera-->
+      <title> CFMS - Clerk Recording Module</title>
+      <h3 id="header" style="color: darkgreen; text-align: center;">CLERK Recording Module</h3>
+      <h5 style=" text-align: center;" >Login Now</h5>
+  
+  </head>
+<!-- tea_submission.html -->
+
+<!-- tea_submission.html -->
+
+
+{% block content %}
+    <div class="container">
+        <h2 class="center-align">Tea Submission</h2>
+        <form method="post" action="{% url 'tea_submission' %}" class="col s12">
+            {% csrf_token %}
+            <div class="row">
+                <div class="input-field col s12">
+                    {{ form.user }}
+                    <label for="{{ form.user.id_for_label }}">Field Manager</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    {{ form.farmer }}
+                    <label for="{{ form.farmer.id_for_label }}">Farmer</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    {{ form.amount_in_kgs }}
+                    <label for="{{ form.amount_in_kgs.id_for_label }}">Amount in Kgs</label>
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit">Submit</button>
+        </form>
+    </div>
+
+    <!-- Materialize JavaScript initialization for the dropdown -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems);
+        });
+    </script>
+{% endblock %}

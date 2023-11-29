@@ -1,10 +1,37 @@
+<!DOCTYPE html>
+<head>
+        <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
+    <!-- Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-{% block content %}
-<h2>Login</h2>
-<form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-</form>
-{% endblock %}
+    <!-- Define Titles Etcetera-->
+    <title> CFMS - Clerk Recording Module</title>
+    <h3 id="header" style="color: darkgreen; text-align: center;">CLERK Recording Module</h3>
+    <h5 style=" text-align: center;" >Login Now</h5>
+
+</head>
+        <body>
+            <div class="container">
+                <div class="row">
+                    <form class="col s12" method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="username" type="text" class="validate" name="username" required autocomplete="off">
+                                <label for="username">Username</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="password" type="password" class="validate" name="password" required autocomplete="off">
+                                <label for="password">Password</label>
+                            </div>
+                        </div>
+                        <button class="btn waves-effect waves-light" type="submit" name="action" >Login</button>
+                    </form>
+                </div>
+            </div>    
+
+        </body>

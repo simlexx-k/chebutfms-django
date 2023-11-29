@@ -23,6 +23,8 @@ class Farmer(models.Model):
         return f"{self.first_name} {self.last_name} - {self.employee.empid}"
     
 from .models import Farmer  # Import the Farmer model
+from django.contrib.auth.models import User
+from django.db import models
 
 class SalaryDeduction(models.Model):
     farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE)
@@ -32,14 +34,18 @@ class SalaryDeduction(models.Model):
     def __str__(self):
         return f"Salary Deduction for {self.farmer} on {self.deduction_date}"
 
+    
 class TeaSubmission(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    #field_manager = models.ForeignKey(User, on_delete=models.CASCADE)
     farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE)
     amount_in_kgs = models.DecimalField(max_digits=10, decimal_places=2)
-    submission_date = models.DateField()
+    submission_date = models.DateField(auto_now=True)
+    # Add other fields as needed
 
     def __str__(self):
-        return f"Tea Submission by {self.farmer} on {self.submission_date}"
-
+        return f"{self.user} - {self.farmer} - {self.amount_in_kgs}"
+    
 class SalaryAdvance(models.Model):
     farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE)
     amount_taken = models.DecimalField(max_digits=10, decimal_places=2)
@@ -93,17 +99,6 @@ class Payment(models.Model):
     def __str__(self):
         return f"Payment for {self.farmer} - {self.monthly_period.strftime('%B %Y')}"
     
-from django.db import models
-from django.contrib.auth.models import User
-
-class TeaSubmission(models.Model):
-    field_manager = models.ForeignKey(User, on_delete=models.CASCADE)  # Assuming you're using Django's built-in User model for managers
-    farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE)
-    amount_in_kgs = models.DecimalField(max_digits=10, decimal_places=2)
-    submission_date = models.DateField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.field_manager.username} - {self.amount_in_kgs} kgs - {self.submission_date}"
 
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas

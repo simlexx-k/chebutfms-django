@@ -1,12 +1,16 @@
-from .views import submit_tea, success_page, generate_farmer_list_pdf
+from .views import generate_farmer_list_pdf, login_view, tea_submission_view, dashboard_view, landing_view
 from django.urls import path
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
-    path('submit_tea/', submit_tea, name='submit_tea'),
-    path('success_page/', success_page, name='success_page'),
-    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('generate_farmer_list_pdf/', generate_farmer_list_pdf, name='generate_farmer_list_pdf'),
+    path('login/', login_view, name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('tea_submission/', tea_submission_view, name="tea_submission"),
+    path('dashboard/', dashboard_view, name='dashboard'),
+    path('landing/', landing_view, name='landing'), 
 ]
+
+
 
